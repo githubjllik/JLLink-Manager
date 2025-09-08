@@ -1263,98 +1263,163 @@
     
     // Configurer les gestionnaires d'événements
     setupEventHandlers() {
-        // Suivi de la saisie dans le champ nom d'utilisateur
-        this.username.addEventListener('input', () => {
-            const rect = this.username.getBoundingClientRect();
-            const x = rect.left + this.username.value.length * 8;
-            const y = rect.top + rect.height / 2;
-            
-            this.spiderManager.trackEyes(x, y);
-        });
+    // Suivi de la saisie dans le champ nom d'utilisateur
+    this.username.addEventListener('input', () => {
+        const rect = this.username.getBoundingClientRect();
+        const x = rect.left + this.username.value.length * 8;
+        const y = rect.top + rect.height / 2;
         
-        // Basculement de visibilité du mot de passe
-        this.passwordToggle.addEventListener('click', () => {
-            if (this.password.type === 'password') {
-                this.password.type = 'text';
-                this.spiderManager.leftPupil.parentElement.style.height = '6px';
-                this.spiderManager.rightPupil.parentElement.style.height = '6px';
-            } else {
-                this.password.type = 'password';
-                if (document.activeElement === this.password) {
-                    this.spiderManager.leftPupil.parentElement.style.height = '1px';
-                    this.spiderManager.rightPupil.parentElement.style.height = '1px';
-                }
-            }
-        });
-        
-        // Focus et blur pour le champ mot de passe
-        this.password.addEventListener('focus', () => {
-            if (!this.singleInputMode) {
-                this.activateSingleInputMode(this.passwordGroup);
-            }
-            
-            if (this.password.type === 'password') {
+        this.spiderManager.trackEyes(x, y);
+    });
+    
+    // Basculement de visibilité du mot de passe
+    this.passwordToggle.addEventListener('click', () => {
+        if (this.password.type === 'password') {
+            this.password.type = 'text';
+            this.spiderManager.leftPupil.parentElement.style.height = '6px';
+            this.spiderManager.rightPupil.parentElement.style.height = '6px';
+        } else {
+            this.password.type = 'password';
+            if (document.activeElement === this.password) {
                 this.spiderManager.leftPupil.parentElement.style.height = '1px';
                 this.spiderManager.rightPupil.parentElement.style.height = '1px';
+            }
+        }
+    });
+    
+    // Focus et blur pour le champ mot de passe
+    this.password.addEventListener('focus', () => {
+        if (!this.singleInputMode) {
+            this.activateSingleInputMode(this.passwordGroup);
+        }
+        
+        if (this.password.type === 'password') {
+            this.spiderManager.leftPupil.parentElement.style.height = '1px';
+            this.spiderManager.rightPupil.parentElement.style.height = '1px';
+        } else {
+            this.spiderManager.leftPupil.parentElement.style.height = '6px';
+            this.spiderManager.rightPupil.parentElement.style.height = '6px';
+        }
+    });
+    
+    this.password.addEventListener('blur', () => {
+        this.spiderManager.leftPupil.parentElement.style.height = '';
+        this.spiderManager.rightPupil.parentElement.style.height = '';
+    });
+    
+    // Focus pour le champ nom d'utilisateur
+    this.username.addEventListener('focus', () => {
+        if (!this.singleInputMode) {
+            this.activateSingleInputMode(this.usernameGroup);
+        }
+    });
+    
+    // Gestion du bouton de connexion en mode input unique
+    this.loginButton.addEventListener('click', () => {
+        if (this.singleInputMode) {
+            // Si nous sommes en mode d'entrée unique et sur le dernier champ (mot de passe)
+            if (this.activeInput === this.passwordGroup) {
+                this.authenticate();
             } else {
-                this.spiderManager.leftPupil.parentElement.style.height = '6px';
-                this.spiderManager.rightPupil.parentElement.style.height = '6px';
+                this.switchInputField();
             }
-        });
-        
-        this.password.addEventListener('blur', () => {
-            this.spiderManager.leftPupil.parentElement.style.height = '';
-            this.spiderManager.rightPupil.parentElement.style.height = '';
-        });
-        
-        // Focus pour le champ nom d'utilisateur
-        this.username.addEventListener('focus', () => {
-            if (!this.singleInputMode) {
+        } else {
+            // Vérifier si les champs sont vides avant d'authentifier
+            const usernameValue = this.username.value.trim();
+            const passwordValue = this.password.value.trim();
+            
+            if (!usernameValue && !passwordValue) {
+                // Si les deux champs sont vides, activer le mode d'entrée unique
                 this.activateSingleInputMode(this.usernameGroup);
+            } else {
+                // Sinon tenter l'authentification
+                this.authenticate();
             }
-        });
-        
-        // Gestion du bouton de connexion en mode input unique
-        this.loginButton.addEventListener('click', () => {
-                    if (this.singleInputMode) {
-                        this.switchInputField();
-                    } else {
-                        // Simulation de connexion réussie
-                        this.authenticate();
-                    }
-                });
-        
-        // Gestion de la touche Entrée
-                this.username.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' && this.singleInputMode) {
-                        e.preventDefault();
-                        this.switchInputField();
-                    }
-                });
-                
-                this.password.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' && this.singleInputMode) {
-                        e.preventDefault();
-                        this.switchInputField();
-                    } else if (e.key === 'Enter') {
-                        e.preventDefault();
-                        this.authenticate();
-                    }
-                });
-    }
+        }
+    });
+    
+    // Gestion de la touche Entrée
+    this.username.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            if (this.singleInputMode) {
+                this.switchInputField();
+            } else {
+                const usernameValue = this.username.value.trim();
+                if (usernameValue) {
+                    this.authenticate();
+                } else {
+                    this.activateSingleInputMode(this.usernameGroup);
+                }
+            }
+        }
+    });
+    
+    this.password.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            this.authenticate();
+        }
+    });
+}
+
     
                 // NOUVELLE MÉTHODE: Authentification
             authenticate() {
-                // Animation de connexion en cours
-                this.loginButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion...';
-                this.loginButton.disabled = true;
-                
-                // Simuler un délai d'authentification (pour l'effet visuel)
-                setTimeout(() => {
-                    // Appeler la fonction de transition
-                    window.handleAuthentication();
-                }, 1000);
-            }
+    // Validation des entrées
+    const usernameValue = this.username.value.trim();
+    const passwordValue = this.password.value.trim();
+    
+    // Fonction pour vérifier si une chaîne est une URL valide
+    const isValidUrl = (string) => {
+        try {
+            // On utilise l'objet URL pour la validation
+            const url = new URL(string);
+            // Vérifier que le protocole est http ou https
+            return url.protocol === 'http:' || url.protocol === 'https:';
+        } catch (e) {
+            return false;
+        }
+    };
+    
+    // Vérifier les conditions d'authentification
+    let isAuthenticated = false;
+    
+    // Cas 1: Deux champs avec des URLs valides
+    if (usernameValue && passwordValue && isValidUrl(usernameValue) && isValidUrl(passwordValue)) {
+        isAuthenticated = true;
+    }
+    // Cas 2: Un champ avec URL valide et l'autre vide
+    else if ((usernameValue && !passwordValue && isValidUrl(usernameValue)) || 
+             (!usernameValue && passwordValue && isValidUrl(passwordValue))) {
+        isAuthenticated = true;
+    }
+    
+    // Si authentification échouée, afficher un message d'erreur subtil
+    if (!isAuthenticated) {
+        this.loginButton.classList.add('error');
+        this.loginButton.innerHTML = 'Accès refusé';
+        
+        setTimeout(() => {
+            this.loginButton.classList.remove('error');
+            this.loginButton.innerHTML = 'Se connecter';
+            this.loginButton.disabled = false;
+        }, 2000);
+        
+        return;
+    }
+    
+    // Animation de connexion en cours
+    this.loginButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion...';
+    this.loginButton.disabled = true;
+    
+    // Simuler un délai d'authentification (pour l'effet visuel)
+    setTimeout(() => {
+        // Appeler la fonction de transition
+        window.handleAuthentication();
+    }, 1000);
+}
+
     
     // Activer le mode input unique
     activateSingleInputMode(activeGroup) {
