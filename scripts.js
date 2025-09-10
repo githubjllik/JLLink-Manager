@@ -1781,6 +1781,14 @@ const fileSystem = {
     }
 };
 
+// Ajouter au système de fichiers existant
+fileSystem.Home.items['Jean-Louis Likula'] = {
+    type: 'custom',
+    description: 'Profil d\'utilisateur avec surveillance des appareils',
+    items: {} // Nous gérons le contenu dynamiquement dans loadJeanLouisContent()
+};
+
+
     
     // DOM Elements
     const mobileNavItems = document.querySelectorAll('.mobile-bottom-nav .nav-item');
@@ -2698,20 +2706,334 @@ function updateSidebar() {
         // Ajouter la section Folders au sidebar
         sidebarHome.appendChild(foldersSection);
         
-        // 3. Ajouter la section utilisateur
-        const userSection = document.createElement('div');
-        userSection.className = 'user-section';
-        userSection.innerHTML = `
-            <div class="user-avatar">JD</div>
-            <div class="user-info">
-                <div class="user-name">John Doe</div>
-                <div class="user-status">Premium User</div>
-            </div>
-            <i class="fas fa-cog"></i>
-        `;
-        sidebarHome.appendChild(userSection);
+// 3. Ajouter la section Jean-Louis Likula
+const jeanLouisSection = document.createElement('div');
+jeanLouisSection.className = 'user-section spider-theme';
+jeanLouisSection.id = 'jean-louis-likula-section';
+jeanLouisSection.innerHTML = `
+    <div class="user-avatar spider-avatar">JL</div>
+    <div class="user-info">
+        <div class="user-name">Jean-Louis Likula</div>
+        <div class="user-status"><span class="spider-web-icon">🕸️</span> Spider Fan</div>
+    </div>
+    <i class="fas fa-spider"></i>
+`;
+jeanLouisSection.addEventListener('click', () => {
+    loadJeanLouisContent();
+});
+sidebarHome.appendChild(jeanLouisSection);
+
     }
 }
+
+// Charger le contenu de Jean-Louis Likula
+function loadJeanLouisContent() {
+    // Mettre à jour le chemin pour Jean-Louis
+    appData.currentPath = ['Home', 'Jean-Louis Likula'];
+    updatePaths();
+    
+    // Créer le contenu pour Jean-Louis
+    const desktopContent = document.querySelector('.desktop-content');
+    if (desktopContent) {
+        desktopContent.innerHTML = '';
+        
+        // Créer le conteneur principal
+        const jlContainer = document.createElement('div');
+        jlContainer.className = 'jean-louis-content';
+        
+        // Section des appareils
+        const devicesHeader = document.createElement('div');
+        devicesHeader.className = 'section-header';
+        devicesHeader.innerHTML = `
+            <i class="fas fa-shield-alt section-icon" style="color: #4cd137;"></i>
+            <div class="section-title">Surveillance des Appareils</div>
+        `;
+        jlContainer.appendChild(devicesHeader);
+        
+        // Premier appareil
+        const device1 = document.createElement('div');
+        device1.className = 'device-card';
+        device1.innerHTML = `
+            <div class="device-header">
+                <div class="device-icon-container">
+                    <i class="fas fa-desktop device-icon" style="color: #42a5f5;"></i>
+                    <div class="device-info">
+                        <div class="device-name">HP Spectre x360</div>
+                        <div class="device-type">Appareil principal</div>
+                    </div>
+                </div>
+                <div class="device-status status-active">
+                    Actif
+                </div>
+            </div>
+            
+            <div class="device-detail">
+                <i class="fab fa-windows detail-icon" style="color: #42a5f5;"></i>
+                <div class="detail-name">Windows 11 Pro</div>
+                <div class="detail-value">v21H2</div>
+            </div>
+            
+            <div class="device-detail">
+                <i class="fab fa-chrome detail-icon" style="color: #f39c12;"></i>
+                <div class="detail-name">Chrome</div>
+                <div class="detail-value">v109.0.5414.120</div>
+            </div>
+            
+            <div class="device-detail">
+                <i class="fas fa-map-marker-alt detail-icon" style="color: #e74c3c;"></i>
+                <div class="detail-name">Paris, France</div>
+                <div class="detail-value">48.8566° N, 2.3522° E</div>
+            </div>
+            
+            <div class="device-detail">
+                <i class="fas fa-network-wired detail-icon" style="color: #3498db;"></i>
+                <div class="detail-name">192.168.1.105</div>
+                <div class="detail-value">IPv4</div>
+            </div>
+            
+            <div class="device-detail">
+                <i class="fas fa-shield-alt detail-icon" style="color: #4cd137;"></i>
+                <div class="detail-name">Sans VPN</div>
+                <div class="detail-value">Réseau local</div>
+            </div>
+            
+            <div class="device-detail">
+                <i class="fas fa-clock detail-icon" style="color: #9b59b6;"></i>
+                <div class="detail-name">Dernière connexion</div>
+                <div class="detail-value">À l'instant</div>
+            </div>
+        `;
+        jlContainer.appendChild(device1);
+        
+        // Deuxième appareil
+        const device2 = document.createElement('div');
+        device2.className = 'device-card';
+        device2.innerHTML = `
+            <div class="device-header">
+                <div class="device-icon-container">
+                    <i class="fas fa-mobile-alt device-icon" style="color: #ff6b81;"></i>
+                    <div class="device-info">
+                        <div class="device-name">Itel S23</div>
+                        <div class="device-type">Smartphone</div>
+                    </div>
+                </div>
+                <div class="device-status status-inactive">
+                    <i class="fas fa-circle" style="font-size: 0.6rem; margin-right: 5px;"></i> Inactif
+                </div>
+            </div>
+            
+            <div class="device-detail">
+                <i class="fab fa-android detail-icon" style="color: #a4c639;"></i>
+                <div class="detail-name">Android 12</div>
+                <div class="detail-value">API 31</div>
+            </div>
+            
+            <div class="device-detail">
+                <i class="fab fa-firefox detail-icon" style="color: #ff9500;"></i>
+                <div class="detail-name">Firefox</div>
+                <div class="detail-value">v103.0.5</div>
+            </div>
+            
+            <div class="device-detail">
+                <i class="fas fa-map-marker-alt detail-icon" style="color: #e74c3c;"></i>
+                <div class="detail-name">Lyon, France</div>
+                <div class="detail-value">45.7640° N, 4.8357° E</div>
+            </div>
+            
+            <div class="device-detail">
+                <i class="fas fa-wifi detail-icon" style="color: #3498db;"></i>
+                <div class="detail-name">78.45.123.45</div>
+                <div class="detail-value">WiFi</div>
+            </div>
+            
+            <div class="device-detail">
+                <i class="fas fa-user-secret detail-icon" style="color: #f1c40f;"></i>
+                <div class="detail-name">VPN Actif</div>
+                <div class="detail-value">NordVPN</div>
+            </div>
+            
+            <div class="device-detail">
+                <i class="fas fa-clock detail-icon" style="color: #9b59b6;"></i>
+                <div class="detail-name">Dernière connexion</div>
+                <div class="detail-value">Hier, 21:45</div>
+            </div>
+        `;
+        jlContainer.appendChild(device2);
+        
+        // Troisième appareil
+        const device3 = document.createElement('div');
+        device3.className = 'device-card';
+        device3.innerHTML = `
+            <div class="device-header">
+                <div class="device-icon-container">
+                    <i class="fas fa-tablet-alt device-icon" style="color: #5352ed;"></i>
+                    <div class="device-info">
+                        <div class="device-name">iPad Pro 12.9"</div>
+                        <div class="device-type">Tablette</div>
+                    </div>
+                </div>
+                <div class="device-status status-inactive">
+                    <i class="fas fa-circle" style="font-size: 0.6rem; margin-right: 5px;"></i> Inactif
+                </div>
+            </div>
+            
+            <div class="device-detail">
+                <i class="fab fa-apple detail-icon" style="color: #a4a4a4;"></i>
+                <div class="detail-name">iPadOS 16.2</div>
+                <div class="detail-value">16C67</div>
+            </div>
+            
+            <div class="device-detail">
+                <i class="fab fa-safari detail-icon" style="color: #2980b9;"></i>
+                <div class="detail-name">Safari</div>
+                <div class="detail-value">v16.2</div>
+            </div>
+            
+            <div class="device-detail">
+                <i class="fas fa-map-marker-alt detail-icon" style="color: #e74c3c;"></i>
+                <div class="detail-name">Bordeaux, France</div>
+                <div class="detail-value">44.8378° N, 0.5792° W</div>
+            </div>
+            
+            <div class="device-detail">
+                <i class="fas fa-wifi detail-icon" style="color: #3498db;"></i>
+                <div class="detail-name">89.154.67.89</div>
+                <div class="detail-value">WiFi</div>
+            </div>
+            
+            <div class="device-detail">
+                <i class="fas fa-shield-alt detail-icon" style="color: #4cd137;"></i>
+                <div class="detail-name">Sans VPN</div>
+                <div class="detail-value">Réseau public</div>
+            </div>
+            
+            <div class="device-detail">
+                <i class="fas fa-clock detail-icon" style="color: #9b59b6;"></i>
+                <div class="detail-name">Dernière connexion</div>
+                <div class="detail-value">07/09/2025, 14:22</div>
+            </div>
+        `;
+        jlContainer.appendChild(device3);
+        
+        // Section d'activité récente
+        const activityHeader = document.createElement('div');
+        activityHeader.className = 'section-header';
+        activityHeader.innerHTML = `
+            <i class="fas fa-chart-line section-icon" style="color: #5352ed;"></i>
+            <div class="section-title">Activité Récente</div>
+        `;
+        jlContainer.appendChild(activityHeader);
+        
+        // Carte d'activité
+        const activityCard = document.createElement('div');
+        activityCard.className = 'device-card';
+        activityCard.innerHTML = `
+            <div class="activity-item">
+                <div class="activity-icon" style="background-color: rgba(76, 209, 55, 0.1);">
+                    <i class="fas fa-sign-in-alt" style="color: #4cd137;"></i>
+                </div>
+                <div class="activity-info">
+                    <div class="activity-title">Connexion réussie</div>
+                    <div class="activity-details">
+                        <span>HP Spectre x360 · Paris, France</span>
+                        <span>Il y a 2 minutes</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="activity-item">
+                <div class="activity-icon" style="background-color: rgba(241, 196, 15, 0.1);">
+                    <i class="fas fa-user-secret" style="color: #f1c40f;"></i>
+                </div>
+                <div class="activity-info">
+                    <div class="activity-title">VPN activé</div>
+                    <div class="activity-details">
+                        <span>Itel S23 · Lyon, France</span>
+                        <span>Hier, 21:42</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="activity-item">
+                <div class="activity-icon" style="background-color: rgba(231, 76, 60, 0.1);">
+                    <i class="fas fa-exclamation-triangle" style="color: #e74c3c;"></i>
+                </div>
+                <div class="activity-info">
+                    <div class="activity-title">Tentative de connexion échouée</div>
+                    <div class="activity-details">
+                        <span>Adresse IP inconnue · Londres, UK</span>
+                        <span>07/09/2025, 08:14</span>
+                    </div>
+                </div>
+            </div>
+        `;
+        jlContainer.appendChild(activityCard);
+        
+        // Section sécurité
+        const securityHeader = document.createElement('div');
+        securityHeader.className = 'section-header';
+        securityHeader.innerHTML = `
+            <i class="fas fa-fingerprint section-icon" style="color: #ff6b81;"></i>
+            <div class="section-title">Sécurité</div>
+        `;
+        jlContainer.appendChild(securityHeader);
+        
+        // Carte de sécurité
+        const securityCard = document.createElement('div');
+        securityCard.className = 'device-card';
+        securityCard.innerHTML = `
+            <div class="security-item security-border-success">
+                <i class="fas fa-check-circle security-icon" style="color: #4cd137;"></i>
+                <div class="security-info" style="flex: 1;">
+                    <div>Authentification à 2 facteurs</div>
+                    <div style="font-size: 0.8rem; color: var(--text-dim);">Activée via Google Authenticator</div>
+                </div>
+                <i class="fas fa-chevron-right" style="color: var(--text-dim);"></i>
+            </div>
+            
+            <div class="security-item security-border-warning">
+                <i class="fas fa-exclamation-circle security-icon" style="color: #f1c40f;"></i>
+                <div class="security-info" style="flex: 1;">
+                    <div>Notifications de connexion</div>
+                    <div style="font-size: 0.8rem; color: var(--text-dim);">Actives uniquement pour les nouveaux appareils</div>
+                </div>
+                <i class="fas fa-chevron-right" style="color: var(--text-dim);"></i>
+            </div>
+            
+            <div class="security-item security-border-danger">
+                <i class="fas fa-times-circle security-icon" style="color: #e74c3c;"></i>
+                <div class="security-info" style="flex: 1;">
+                    <div>Vérification des appareils</div>
+                    <div style="font-size: 0.8rem; color: var(--text-dim);">Non configurée</div>
+                </div>
+                <i class="fas fa-chevron-right" style="color: var(--text-dim);"></i>
+            </div>
+        `;
+        jlContainer.appendChild(securityCard);
+        
+        // Bouton de déconnexion
+        const disconnectButton = document.createElement('button');
+        disconnectButton.className = 'disconnect-button';
+        disconnectButton.innerHTML = `
+            <i class="fas fa-power-off disconnect-icon"></i>
+            Déconnecter tous les appareils
+        `;
+        disconnectButton.addEventListener('click', () => {
+            showToast('Déconnexion de tous les appareils...', 'info');
+        });
+        jlContainer.appendChild(disconnectButton);
+        
+        // Ajouter le conteneur au contenu desktop
+        desktopContent.appendChild(jlContainer);
+        
+        // Mettre à jour la barre de statut
+        const statusBar = document.querySelector('.status-bar');
+        if (statusBar) {
+            statusBar.innerHTML = `<span>Jean-Louis Likula</span>`;
+        }
+    }
+}
+
 
 
 // Créer un élément dossier pour le sidebar

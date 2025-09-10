@@ -1716,6 +1716,264 @@
 /* ╭━━━━━━━🕷️━━━━━━━╮
    CSS - VERSION 03
    ╰━━━━━━━🕷️━━━━━━━╯ */
+/* Styles du thème araignée pour Jean-Louis Likula */
+.spider-theme {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    border: 1px solid #30475e;
+    position: relative;
+    overflow: hidden;
+}
+
+.spider-theme::before {
+    content: "🕸️";
+    position: absolute;
+    top: -10px;
+    right: -5px;
+    font-size: 24px;
+    opacity: 0.2;
+    transform: rotate(15deg);
+}
+
+.spider-theme::after {
+    content: "🕸️";
+    position: absolute;
+    bottom: -10px;
+    left: -5px;
+    font-size: 24px;
+    opacity: 0.2;
+    transform: rotate(-15deg);
+}
+
+.spider-avatar {
+    background: linear-gradient(45deg, #800000, #b22222);
+    position: relative;
+}
+
+.spider-avatar::after {
+    content: "🕷️";
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    font-size: 12px;
+}
+
+.spider-web-icon {
+    display: inline-block;
+    margin-right: 3px;
+    animation: swing 5s infinite ease-in-out;
+}
+
+@keyframes swing {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    75% { transform: rotate(-5deg); }
+}
+
+/* Styles pour le contenu de Jean-Louis */
+.jean-louis-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.device-card {
+    background-color: var(--card-dark);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.device-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.device-card::before {
+    content: "🕸️";
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    font-size: 20px;
+    opacity: 0.2;
+}
+
+.device-header {
+    padding: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.device-icon-container {
+    display: flex;
+    align-items: center;
+}
+
+.device-icon {
+    font-size: 1.4rem;
+    margin-right: 15px;
+}
+
+.device-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.device-name {
+    font-weight: 600;
+}
+
+.device-type {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+}
+
+.device-status {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+.status-active {
+    background-color: rgba(76, 209, 55, 0.1);
+    color: #4cd137;
+}
+
+.status-inactive {
+    background-color: rgba(255, 107, 129, 0.1);
+    color: #ff6b81;
+}
+
+.device-detail {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.device-detail:last-child {
+    border-bottom: none;
+}
+
+.detail-icon {
+    width: 20px;
+    text-align: center;
+    margin-right: 15px;
+}
+
+.detail-name {
+    flex: 1;
+}
+
+.detail-value {
+    margin-left: auto;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.section-icon {
+    margin-right: 10px;
+    color: var(--primary-color);
+}
+
+.section-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.activity-item {
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.activity-info {
+    flex: 1;
+}
+
+.activity-title {
+    font-weight: 500;
+}
+
+.activity-details {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    display: flex;
+    justify-content: space-between;
+}
+
+.security-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+}
+
+.security-icon {
+    width: 20px;
+    text-align: center;
+    margin-right: 15px;
+}
+
+.security-border-success {
+    border-left: 3px solid #4cd137;
+}
+
+.security-border-warning {
+    border-left: 3px solid #f1c40f;
+}
+
+.security-border-danger {
+    border-left: 3px solid #e74c3c;
+}
+
+.disconnect-button {
+    background-color: rgba(231, 76, 60, 0.2);
+    color: #e74c3c;
+    border: none;
+    padding: 12px 20px;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+.disconnect-button:hover {
+    background-color: rgba(231, 76, 60, 0.3);
+}
+
+.disconnect-icon {
+    margin-right: 8px;
+}
 
 /* ╭━━━━━━━🕷️━━━━━━━╮
    CSS - VERSION 04
